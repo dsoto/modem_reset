@@ -51,18 +51,24 @@ int main(void)
         if (c > 0){
             switch (c) {
                 case '1':
+                    // this will eventually be to strobe the modem on pin of a telit module
+                    // set port to output mode and low state
+                    // stall for 1000 ms
+                    // set port back to high impedance
                     CDC_Device_SendString(&VirtualSerial_CDC_Interface, "received 1\r\n");
                     PORTB &= ~(1 << 4);
                     _delay_ms(1000);
                     PORTB |= (1 << 4);
                     break;
                 case 'r':
+                    // this will be to strobe the reset pin of a telit module
                     CDC_Device_SendString(&VirtualSerial_CDC_Interface, "received r\r\n");
                     PORTB &= ~(1 << 4);
                     _delay_ms(200);
                     PORTB |= (1 << 4);
                     break;
                 case '?':
+                    // this wil be to inquire abouth the powermon pin of a telit module
                     CDC_Device_SendString(&VirtualSerial_CDC_Interface, "received ?\r\n");
                     PORTB |= ~(1 << 4);
                     break;
