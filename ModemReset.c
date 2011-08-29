@@ -45,6 +45,7 @@ int main(void)
     DDRB  |= (1 << 4);
     PORTB |= (1 << 4);
 
+
 	for (;;)
 	{
         int16_t c = CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
@@ -56,9 +57,12 @@ int main(void)
                     // stall for 1000 ms
                     // set port back to high impedance
                     CDC_Device_SendString(&VirtualSerial_CDC_Interface, "received 1\r\n");
-                    PORTB &= ~(1 << 4);
+                    DDRD  |=  (1 << 0);
+                    PORTD &= ~(1 << 0);
+
                     _delay_ms(1000);
-                    PORTB |= (1 << 4);
+                    DDRD  &= ~(1 << 0);
+                    PORTD |=  (1 << 0);
                     break;
                 case 'r':
                     // this will be to strobe the reset pin of a telit module
